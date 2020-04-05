@@ -1,0 +1,22 @@
+.header {
+  height: 3.2rem;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.header-center {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.header-logo {
+  font-size: 1.4rem;
+  color: #1e90ff;
+  text-align: left;
+}
+.header-text {
+  font-size: 0.6rem;
+  color: #999;
+  padding-left: 0.3rem;
+}
+.ant-menu-item {
+  color: #999;
+}

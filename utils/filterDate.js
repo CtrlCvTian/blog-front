@@ -5,7 +5,7 @@ function getzf (num) {
   }
   return num
 }
-export default function getMyDate (time, isTime) {
+export default function getMyDate (time) {
   if (typeof time === 'undefined') {
     return ''
   }
@@ -13,27 +13,7 @@ export default function getMyDate (time, isTime) {
   var oYear = oDate.getFullYear()
   var oMonth = oDate.getMonth() + 1
   var oDay = oDate.getDate()
-  var oHour = oDate.getHours()
-  var oMin = oDate.getMinutes()
-  var oSen = oDate.getSeconds()
   var oTime = null
-  //   如果不传说明需要时分秒，传不需要时分秒
-  if (!isTime) {
-    oTime =
-      oYear +
-      '-' +
-      getzf(oMonth) +
-      '-' +
-      getzf(oDay) +
-      ' ' +
-      getzf(oHour) +
-      ':' +
-      getzf(oMin) +
-      ':' +
-      getzf(oSen) // 最后拼接时间
-  } else {
-    oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay)
-  }
-  console.log(oTime)
+  oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay)
   return oTime
 }

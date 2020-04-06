@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Row, Col, List } from 'antd'
 import Header from "../components/Header"
+import Link from 'next/link'
 import Author from "../components/Author"
 import Advert from "../components/Advert"
 import Footer from "../components/Footer"
@@ -13,23 +14,20 @@ import {
   VideoCameraOutlined,
   UserOutlined
 } from '@ant-design/icons';
-
-const Home = (list) => {
-  // 此处进行接收getInitialProps中获取的数据
-  const [myList, setMyList] = useState(list)
+import serverPath from '../utils/networkURL'
+const Home = () => {
+  const [myList, setMyList] = useState([])
+  // 请求数据
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        'http://127.0.0.1:7001/front/getActicleList',
-      );
-      console.log(result.data);
-      setMyList(result.data);
-    };
-    fetchData();
-  }, []);
+      const result = await axios(serverPath.getActicleList)
+      setMyList(result.data)
+    }
+    fetchData()
+  }, [])
   return (
     <div>
-      {/* <Head>
+      <Head>
         <title>个人博客</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -44,9 +42,13 @@ const Home = (list) => {
             renderItem={
               item => (
                 <List.Item>
-                  <div className="list-title">{item.title}</div>
+                  <div className="list-title">
+                    <Link href={{ pathname: '/detailed', query: { id: item.id } }} >
+                      <a>{item.title}</a>
+                    </Link>
+                  </div>
                   <div className="list-icon">
-                    <span><FieldTimeOutlined />2013</span>
+                    <span><FieldTimeOutlined />{filterDate(item.addTime)}</span>
                     <span><VideoCameraOutlined />{item.title}</span>
                     <span><UserOutlined />{item.viewCount}人</span>
                   </div>
@@ -61,18 +63,9 @@ const Home = (list) => {
           <Advert />
         </Col>
       </Row>
-      <Footer /> */}
+      <Footer />
     </div>
   )
 }
-
-// Home.getInitialProps = async () => {
-//   const promise = new Promise((resolve, reject) => {
-//     axios('http://127.0.0.1:7001/front/getActicleList').then((response) => {
-//       resolve(response.data)
-//     })
-//   })
-//   return await promise
-// }
 
 export default Home
